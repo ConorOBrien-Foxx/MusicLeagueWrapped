@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Add Materialize CSS and JavaScript CDN links -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <title>Music League Wrapped</title>
+  <script>
+    window.SeasonWrapped = null;
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="file-field input-field">
+        <div class="btn">
+            <span>Extracted .json</span>
+            <input type="file" id="jsonFileInput" accept=".json">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+    <div class="hidden" id="app">
+        <h3>Your League Wrapped</h3>
+
+        <a class="dropdown-trigger btn" href="#" data-target="user-select"><i>Please select a user&hellip;</i></a>
+        
+        <ul id="user-select" class="dropdown-content">
+            <!--
+            <li><a href="#!" data-value="gopher"><img src="https://musicleague-user-assets.b-cdn.net/users/897da56ef3e745fcbec54f18b41fd43b/images/profile?aspect_ratio=1%3A1&height=300&optimizer=image&quality=70&v=37d41e5f-ee9c-47e1-b927-e97dff95f810&width=300" alt="gopher" class="left">gopher</a></li>
+            -->
+        </ul>
+        
+        <div>
+            <h4 id="selected-user"><i>Selected user will show here</i></h4>
+            <div id="user-info"></div>
+        </div>
+    </div>
+  </div>
+
+  <script src="wrapped.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+.hidden {
+    display: none;
+}
+.dropdown-content li img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -3px;
+}
+.smol-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+    /* margin-top: -5px; */
+    vertical-align: middle;
+}
+h4 .smol-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+#user-info {
+    font-size: 18px;
+}
+#user-info ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    /* flex-direction: row; */
+    /* list-style-type: disc; */
+}
+#user-info ul > * {
+    border: 1px solid;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 15px;
+}
+html {
+    /* background-color: red; */
+}
