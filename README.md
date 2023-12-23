@@ -4,4 +4,4 @@
 2. Upload to [here](https://conorobrien-foxx.github.io/MusicLeagueWrapped).
 3. Profit?
 
-![example interface for music league wrapped](https://github.com/ConorOBrien-Foxx/MusicLeague/blob/main/img/example.jpg?raw=true "The Interface")
+<img src="https://raw.githubusercontent.com/ConorOBrien-Foxx/MusicLeagueWrapped/main/img/example.jpg" width=800 alt="example interface for music league wrapped">
