@@ -33,13 +33,16 @@ const getPlaces = (list, cmp=(a => a)) => {
     return result;
 };
 
+const compareCaseInsensitive = (a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: "base" })
+
 const App = {
     setData(data) {
         this.data = data;
         this.processData();
         
         let userNames = Object.keys(this.data.members)
-            .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+            .sort(compareCaseInsensitive);
         $("#user-select").empty();
         for(let name of userNames) {
             let a = $(`<a href="#!"></a>`);
@@ -179,7 +182,63 @@ const App = {
         $("#user-info")
             .empty()
             .append(newInfo);
-    }
+    },
+    
+    leagueAction(action) {
+        if(action === "view-all-songs") {
+            let allSongs = this.getAllSongs();
+            $("#user-info").empty();
+            let table = $("<table>");
+            table.append("<tr><th>Song name</th><th>Song artist</th><th style=\"min-width: 20ch;\">Submitter(s)</th></tr>");
+            let songs = [...allSongs.values()];
+            songs.sort((s1, s2) =>
+                compareCaseInsensitive(s1.submitters[0], s2.submitters[0])
+                || compareCaseInsensitive(s1.artist, s2.artist)
+                || compareCaseInsensitive(s1.songName, s2.songName)
+            );
+            for(let song of songs) {
+                let songDisplay = $("<tr>");
+                songDisplay.append($("<td>").append(this.songPreview({
+                    img: song.album.cover,
+                    name: song.songName,
+                })));
+                songDisplay.append($(`<td>${song.artist}</td>`));
+                let submittersCell = $("<td>");
+                song.submitters.forEach(submitter => {
+                    submittersCell.append(this.userPreview(submitter));
+                });
+                songDisplay.append(submittersCell);
+                table.append(songDisplay);
+            }
+            $("#user-info").append(table);
+            // $("#user-info").text([...allSongs].map(([key, value]) => key));
+        }
+        else {
+            alert(`Unknown action: ${action}`);
+        }
+    },
+    
+    getAllSongs() {
+        let songMap = new Map();
+        for(let round of Object.values(this.data.rounds)) {
+            for(let submission of round.info) {
+                let key = [ submission.artist, submission.songName, submission.album.name ];
+                if(songMap.has(key)) {
+                    let info = songMap.get(key);
+                    info.submitters.push(submission.submitter);
+                }
+                else {
+                    songMap.set(key, {
+                        songName: submission.songName,
+                        artist: submission.artist,
+                        album: submission.album,
+                        submitters: [ submission.submitter ],
+                    });
+                }
+            }
+        }
+        return songMap;
+    },
 };
 
 
@@ -207,4 +266,8 @@ $(document).ready(function(){
     onFileReady();
     
     $(".dropdown-trigger").dropdown();
+    
+    $("#league-info-select a").click((ev) => {
+        App.leagueAction(ev.target.closest("a").dataset.value);
+    });
 });
